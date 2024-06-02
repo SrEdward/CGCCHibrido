@@ -48,6 +48,9 @@ const GLchar* fragmentShaderSource = "#version 450\n"
 
 bool rotateX = false, rotateY = false, rotateZ = false;
 float scale = 1.0f;
+float translateX = 0.0f;
+float translateY = 0.0f;
+float translateZ = 0.0f;
 
 // Função MAIN
 int main()
@@ -110,6 +113,7 @@ int main()
 
 		// Primeiro cubo
 		model = glm::mat4(1);
+		model = glm::translate(model, glm::vec3(translateX, translateY, translateZ)); // Aplica a translação
 		model = glm::scale(model, glm::vec3(scale, scale, scale)); // Aplica a escala
 		if (rotateX)
 		{
@@ -131,7 +135,7 @@ int main()
 
 		// Segundo cubo
 		model = glm::mat4(1);
-		model = glm::translate(model, glm::vec3(1.0f, 0.0f, 0.0f)); // Desloca o segundo cubo
+		model = glm::translate(model, glm::vec3(1.0f + translateX, translateY, translateZ)); // Desloca o segundo cubo e aplica a translação
 		model = glm::scale(model, glm::vec3(scale, scale, scale)); // Aplica a escala
 		if (rotateX)
 		{
@@ -196,6 +200,36 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
 	if (key == GLFW_KEY_J && action == GLFW_PRESS)
 	{
 		scale = (scale > 0.1f) ? scale - 0.1f : 0.1f;
+	}
+
+	if (key == GLFW_KEY_W && action == GLFW_PRESS)
+	{
+		translateY += 0.1f;
+	}
+
+	if (key == GLFW_KEY_S && action == GLFW_PRESS)
+	{
+		translateY -= 0.1f;
+	}
+
+	if (key == GLFW_KEY_A && action == GLFW_PRESS)
+	{
+		translateX -= 0.1f;
+	}
+
+	if (key == GLFW_KEY_D && action == GLFW_PRESS)
+	{
+		translateX += 0.1f;
+	}
+
+	if (key == GLFW_KEY_M && action == GLFW_PRESS)
+	{
+		translateZ += 0.1f;
+	}
+
+	if (key == GLFW_KEY_N && action == GLFW_PRESS)
+	{
+		translateZ -= 0.1f;
 	}
 }
 
